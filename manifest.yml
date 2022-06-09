@@ -1,8 +1,8 @@
 applications:
 - name: helpie
-  host:    chatbot-educatiu-v1
+  host: chatbot-educatiu
   command: npm start
   buildpack: nodejs_buildpack
   path: .
-  memory: 256M  
+  memory: 128M  
   instances: 1
