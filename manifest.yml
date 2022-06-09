@@ -1,5 +1,5 @@
 applications:
-- name: helpie
+- name: chatbot-educatiu
   host: chatbot-educatiu
   command: npm start
   buildpack: nodejs_buildpack
