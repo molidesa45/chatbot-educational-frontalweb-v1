@@ -1,3 +1,4 @@
+#!/usr/bin/env
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
@@ -14,15 +15,14 @@
  * limitations under the License.
  */
 
-// eslint-disable-next-line lines-around-directive
 'use strict';
-require('dotenv').config({ silent: true });
-const app = require('./app');
 
-const port = process.env.PORT || 8080,
-    server = app.listen(port, () => {
-    // eslint-disable-next-line no-console
-        console.log('Server running on port: %d', port);
-    });
+require('dotenv').config({silent: true});
 
-module.exports = server;
+var server = require('./app');
+var port = process.env.PORT || 3000;
+
+server.listen(port, function() {
+  // eslint-disable-next-line
+  console.log('Server running on port: %d', port);
+});

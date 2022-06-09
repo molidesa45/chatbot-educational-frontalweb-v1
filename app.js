@@ -1,45 +1,26 @@
-/* eslint-disable consistent-return */
-/**
- * Copyright 2015 IBM Corp. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-"use strict";
+'use strict';
 
-var express = require("express"), // app server
-  bodyParser = require("body-parser"); // parser for post requests
-  var hbs = require("hbs");
-  //AssistantV1 = require("watson-developer-cloud/assistant/v1"), // watson sdk
-  var AssistantV2 = require('ibm-watson/assistant/v2'); // watson sdk
-  var IamAuthenticator = require('ibm-watson/auth').IamAuthenticator;
+var express = require('express'); // app server
+var bodyParser = require('body-parser'); // parser for post requests
+//var hbs = require("hbs");
+var AssistantV2 = require('ibm-watson/assistant/v2'); // watson sdk
+var IamAuthenticator = require('ibm-watson/auth').IamAuthenticator;
 
-  var Actions = require('./functions/actions');
+var Actions = require('./functions/actions');
 var actions = new Actions();
 
 var SearchDocs = require('./functions/searchDocs');
 var searchDocs = new SearchDocs();
-
-  
-
-  //var XMLHttpRequest = require("xhr2");
-
+/*
+var BankFunctions = require('./functions/bankFunctions');
+var bankFunctions = new BankFunctions();
+*/
 var app = express();
 
-// Bootstrap application settings
-app.use(express.static("./public")); // load UI from public folder
+app.use(express.static('./public')); // load UI from public folder
 app.use(bodyParser.json());
-
+/*
 // expres hbs engine
 hbs.registerPartials(__dirname + "/views/parciales");
 app.set("view engine", "hbs");
@@ -47,14 +28,14 @@ app.set("view engine", "hbs");
 app.get("/", function(req, res) {
   res.render("home");
 });
+*/
 
-// Create the service wrapper
 var assistant = new AssistantV2({
   version: '2019-02-28',
   authenticator: new IamAuthenticator({
-    apikey: '4byaLv2phwxodwnkpXfJGS35Xjzf06Xojef-4UtPhizt'
+    apikey: process.env.ASSISTANT_IAM_APIKEY
   }),
-  url: 'https://api.us-south.assistant.watson.cloud.ibm.com/instances/a81cf0f8-48d2-403b-b687-e77bebe102a6',
+  url: process.env.ASSISTANT_URL,
 });
 
 var date = new Date();
@@ -76,9 +57,13 @@ var initContext = {
   }
 };
 
-
+/*
+ * Endpoint to be call from the client side.
+ * Required.body.firstcall is set when initialising chat and sends initial context (initContext)
+ * Context is then set when required for actions.
+ */
 app.post('/api/message', function (req, res) {
-  var assistantId = '0f7d916a-2dae-42e9-be72-440eb5aec7600' || '<assistant-id>';
+  var assistantId = process.env.ASSISTANT_ID || '<assistant-id>';
   if (!assistantId || assistantId === '<assistant-id>') {
     return res.json({
       'output': {
@@ -105,6 +90,7 @@ app.post('/api/message', function (req, res) {
   if (req.body.firstCall || req.body.context) {
     payload.context =  req.body.context || initContext;
   }
+
   // Send the input to the assistant service
   assistant.message(payload, function (err, data) {
     if (err) {
@@ -118,55 +104,36 @@ app.post('/api/message', function (req, res) {
         return res.json(error);
       });
     });
+    
   });
 });
-
-/*//backup v1
-var assistant = new AssistantV1({
-  // If unspecified here, the ASSISTANT_USERNAME and ASSISTANT_PASSWORD env properties will be checked
-  // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
-  username: "apikey",
-  password: "4byaLv2phwxodwnkpXfJGS35Xjzf06Xojef-4UtPhizt",
-  url: "https://api.us-south.assistant.watson.cloud.ibm.com/instances/a81cf0f8-48d2-403b-b687-e77bebe102a6",
-  version: "2018-07-10"
-});
-// Endpoint to be call from the client side
-app.post("/api/message", function(req, res) {
-  var workspace = "0f7d916a-2dae-42e9-be72-440eb5aec760";
-  if (!workspace) {
-    return res.json({
-      output: {
-        text:
-          'The app has not been configured with a <b>WORKSPACE_ID</b> environment variable. Please refer to the <a href="https://github.com/watson-developer-cloud/assistant-simple">README</a> documentation on how to set this variable. <br> Once a workspace has been defined the intents may be imported from <a href="https://github.com/watson-developer-cloud/assistant-simple/blob/master/training/car_workspace.json">here</a> in order to get a working application.'
-      }
-    });
+/*
+app.get('/bank/validate', function (req, res) {
+  var value = req.query.value;
+  var isAccValid = bankFunctions.validateAccountNumber(Number(value));
+  // if accountNum is in list of valid accounts
+  if (isAccValid === true) {
+    res.send({ result: 'acc123valid' });
+  } else {
+    // return invalid by default
+    res.send({ result: 'acc123invalid' });
   }
-  
-  var payload = {
-    workspace_id: workspace,
-    context: req.body.context || {},
-    input: req.body.input || {}
-  };
+});
 
-  // Send the input to the assistant service
-  assistant.message(payload, function(err, data) {
-    if (err) {
-      return res.status(err.code || 500).json(err);
-    }
-    return res.json(updateMessage(payload, data));
-  });
+app.get('/bank/locate', function (req, res) {
+  res.send({ result: 'zip123retrieved' });
 });
 */
-
 app.get('/api/session', function (req, res) {
   assistant.createSession({
-    assistantId: '0f7d916a-2dae-42e9-be72-440eb5aec760' || '{assistant_id}',
+    assistantId: process.env.ASSISTANT_ID || '{assistant_id}',
   }, function (error, response) {
-    if (error) {      
+    if (error) {
       return res.send(error);
-    } else {      
+    } else {
       return res.send(response);
     }
   });
 });
+
 module.exports = app;

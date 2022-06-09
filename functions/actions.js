@@ -86,7 +86,7 @@ function actions() {
 
     var req = http.request({
       path: parameterizedEndpoint,
-      port: process.env.PORT || 8080,
+      port: process.env.PORT || 3000,
       method: 'POST',
       headers: {
         'Content-type': 'application/json',

@@ -1,0 +1,63 @@
+<html>
+<head>
+  <base href="/">
+  <title>Pilot Chatbot educatiu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:image" content="conversation.svg" />  
+  <link rel="shortcut icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+
+<body>
+ 
+  <div id="contentParent">
+    <div id="chat-column-holder" class="container-fluid">
+      <div class="row justify-content-md-center">
+        <div id="boxchat" class="col-lg-4">
+          <div id="headerboxchat" class="card">
+          <div id="headerbackground"></div>
+          <div class="titlechatbot">
+            <i> Helpie</i>
+           </div>
+          <div id="accordion"></div>
+          <div class="card-collapse collapse show" id="collapseOne">  
+        <div class="card-body">  
+        <div id="scrollingChat" class="scrollbar scrollbar-blue"></div>
+        <p class="user-typing" id="user-typing-field"></p>
+        <label for="textInput" class="inputOutline">
+          <input id="textInput" class="input responsive-column" placeholder="Escriu aquí la teva pregunta" type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)"
+            autofocus>
+        </label>
+        <button type="button" id="button_enviar" class="btn btn-info" onclick="ConversationPanel.onClickBtn()">Enviar</button>
+        </div>
+        </div>
+      </div>
+      </div>
+      </div>
+    </div>
+    <div id="payload-column" class="hide">
+      <div id="payload-initial-message">
+        Escriu aquí la teva pregunta
+      </div>
+
+      <div id="payload-request" class="payload"></div>
+      <div id="payload-response" class="payload"></div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="js/common.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/conversation.js"></script>
+  <script src="js/uiActionFunctions.js"></script>
+  <script src="js/payload.js"></script>
+  <script src="js/global.js"></script>
+  <script type="text/javascript" src="https://cdn.rawgit.com/watson-developer-cloud/watson-developer-cloud.github.io/master/analytics.js"></script>
+</body>
+</html>
