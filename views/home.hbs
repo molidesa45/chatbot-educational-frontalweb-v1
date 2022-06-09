@@ -1,0 +1,36 @@
+{{> head }}
+    <div id="contentParent">
+        <div id="chat-column-holder" class="container-fluid">
+            <div class="row justify-content-md-center">
+                <div id="boxchat" class="col-lg-4">
+                   <div id="headerboxchat" class="card">
+                        <div id="headerbackground"></div>
+                        <div class="titlechatbot">
+                         <i> Asistente MIZU</i>
+                        </div>
+                        <div id="accordion"></div>
+                        <div class="card-collapse collapse show" id="collapseOne">
+                            <div class="card-body">
+                                <div id="scrollingChat"></div>
+                                <p class="user-typing" id="user-typing-field"></p>
+                                <label for="textInput" class="inputOutline">
+           <input id="textInput" class="input responsive-column" placeholder="Escriu aquí la teva pregunta" type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)">
+         </label>
+         <button type="button" id="button_enviar" class="btn btn-info" onclick="ConversationPanel.onClickBtn()">Enviar</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="payload-column" class="hide">
+        <div id="payload-initial-message">
+            Escriu aquí la teva pregunta
+        </div>
+        <div id="payload-request" class="payload"></div>
+        <div id="payload-response" class="payload"></div>
+    </div>
+
+{{> footer }}
