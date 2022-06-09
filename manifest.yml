@@ -1,6 +1,6 @@
 applications:
 - name: chatbot-educatiu
-  host: chatbot-educatiu
+  host: chatbot-educatiu-v1
   command: npm start
   buildpack: nodejs_buildpack
   path: .
