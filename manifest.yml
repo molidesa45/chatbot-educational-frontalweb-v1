@@ -2,7 +2,7 @@
 applications:
 - name: helpie  
   command: npm start
-  buildpack: sdk-for-nodejs
+  buildpack: nodejs_buildpack
   path: .
   memory: 256M  
   instances: 1
