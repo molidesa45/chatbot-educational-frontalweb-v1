@@ -4,5 +4,3 @@ applications:
   command: npm start
   buildpack: nodejs_buildpack
   path: .
-  memory: 128M
-  instances: 3
