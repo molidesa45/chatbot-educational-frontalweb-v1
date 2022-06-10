@@ -8,19 +8,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/molidesa45/chatbot-educational-frontalweb-v1"
-  },
-  "engines": {
-    "node": ">=12"
-},
-  "enginesStrict": true,
-  "license": "Apache-2.0",
+  }, 
+  "enginesStrict": true,    
+  "license": "ISC",
   "dependencies": {
-    "eslint": "^6.6.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",    
-    "ibm-watson": "^5.1.0",
-    "nodemon": "^1.18.11",        
-    "xhr2": "^0.1.4"    
+    "express": "^4.17.1",   
+    "ibm-watson": "^5.1.0"    
   }
 }
