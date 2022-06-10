@@ -1,7 +1,8 @@
 {
   "name": "helpie",
   "description": "Applicació de nodeJS que s'integra amb watson assistant",
-  "version": "0.1.1",  
+  "version": "0.1.1",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
