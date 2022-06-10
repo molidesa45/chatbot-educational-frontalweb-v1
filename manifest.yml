@@ -1,6 +1,6 @@
+---
 applications:
-- name: helpie
-  host:    chatbot-educatiu-v1
+- name: helpie  
   command: npm start
   buildpack: sdk-for-nodejs
   path: .
