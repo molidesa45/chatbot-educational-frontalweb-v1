@@ -11,7 +11,7 @@
     "url": "https://github.com/molidesa45/chatbot-educational-frontalweb-v1"
   }, 
   "enginesStrict": true,    
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
