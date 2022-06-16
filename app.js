@@ -64,7 +64,7 @@ var initContext = {
  */
 app.post('/api/message', function (req, res) {
   var assistantId = process.env.ASSISTANT_ID || '<assistant-id>';
-  if (!assistantId || assistantId === '<assistant-id>') {
+  if (!assistantId || assistantId === '<assistant-id>') {    
     return res.json({
       'output': {
         'text': 'The app has not been configured with a <b>ASSISTANT_ID</b> environment variable. Please refer to the ' + '<a href="https://github.com/watson-developer-cloud/assistant-intermediate">README</a> documentation on how to set this variable. <br>' + 'Once a workspace has been defined the intents may be imported from ' + '<a href="https://github.com/watson-developer-cloud/assistant-intermediate/blob/master/training/banking_workspace.json">here</a> in order to get a working application.'
@@ -75,7 +75,7 @@ app.post('/api/message', function (req, res) {
   var textIn = '';
 
   if(req.body.input) {
-    textIn = req.body.input.text;
+    textIn = req.body.input.text;    
   }
 
   var payload = {
@@ -84,7 +84,7 @@ app.post('/api/message', function (req, res) {
     input: {
       message_type : 'text',
       text : textIn,
-    }
+    }    
   };
 
   if (req.body.firstCall || req.body.context) {
@@ -96,6 +96,7 @@ app.post('/api/message', function (req, res) {
     if (err) {
       return res.status(err.code || 500).json(err);
     }
+    console.log(data.result.output.generic);
 
     searchDocs.addDocs(data.result, function () {
       actions.testForAction(data.result, req.body.session_id).then(function (d) {
@@ -130,7 +131,7 @@ app.get('/api/session', function (req, res) {
   }, function (error, response) {
     if (error) {
       return res.send(error);
-    } else {
+    } else {      
       return res.send(response);
     }
   });

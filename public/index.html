@@ -28,10 +28,9 @@
         <div id="scrollingChat" class="scrollbar scrollbar-blue"></div>
         <p class="user-typing" id="user-typing-field"></p>
         <label for="textInput" class="inputOutline">
-          <input id="textInput" class="input responsive-column" placeholder="Escriu aquí la teva pregunta" type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)"
-            autofocus>
+          <input id="textInput" class="input responsive-column" placeholder="Escriu aquí la teva pregunta" type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)">
         </label>
-        <button type="button" id="button_enviar" class="btn btn-info" onclick="ConversationPanel.onClickBtn()">Enviar</button>
+        <button type="button" id="button_enviar" class="btn btn-info" onclick="ConversationPanel.onClickBtn(event)">Enviar</button>
         </div>
         </div>
       </div>
@@ -41,10 +40,7 @@
     <div id="payload-column" class="hide">
       <div id="payload-initial-message">
         Escriu aquí la teva pregunta
-      </div>
-
-      <div id="payload-request" class="payload"></div>
-      <div id="payload-response" class="payload"></div>
+      </div>      
     </div>
   </div>
 
@@ -55,8 +51,8 @@
   <script src="js/common.js"></script>
   <script src="js/api.js"></script>
   <script src="js/conversation.js"></script>
-  <script src="js/uiActionFunctions.js"></script>
-  <script src="js/payload.js"></script>
+  
+  
   <script src="js/global.js"></script>
   <script type="text/javascript" src="https://cdn.rawgit.com/watson-developer-cloud/watson-developer-cloud.github.io/master/analytics.js"></script>
 </body>

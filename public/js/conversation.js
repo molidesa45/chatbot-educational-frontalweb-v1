@@ -22,7 +22,8 @@ var ConversationPanel = (function () {
   return {
     init: init,
     inputKeyDown: inputKeyDown,
-    sendMessage: sendMessage
+    sendMessage: sendMessage,
+    onClickBtn:onClickBtn    
   };
 
   // Initialize the module
@@ -356,5 +357,14 @@ var ConversationPanel = (function () {
       inputBox.value = '';
       Common.fireEvent(inputBox, 'input');
     }
+  }  
+
+  function onClickBtn(){   
+      let contentbox = $('input').val();
+      Api.sendRequest(contentbox, false);
+      $('input').val('').css('width','100%').removeClass('underline');
   }
+
+
+
 }());
