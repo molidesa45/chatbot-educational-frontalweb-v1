@@ -248,12 +248,13 @@ var ConversationPanel = (function () {
         '<br>' + ((res.body.length > 200) ? res.body.substring(0, 120) + '...' : res.body) +
         '<br><a href="docs/doc' + (i + 1)+ '.html" target="_blank">Full document</a>' +
         '</div>';
+      
     }
     return resList;
   }
 
   function getResponse(responses, gen) {
-    var title = '', description = '';
+    var title = '', description = '';    
     if (gen.hasOwnProperty('title')) {
       title = gen.title;
     }
@@ -266,7 +267,7 @@ var ConversationPanel = (function () {
         type: gen.response_type,
         innerhtml: title + description + img
       });
-    } else if (gen.response_type === 'text') {
+    } else if (gen.response_type === 'text') {     
       responses.push({
         type: gen.response_type,
         innerhtml: gen.text
@@ -306,13 +307,17 @@ var ConversationPanel = (function () {
     var responses = [];
 
     if (newPayload.hasOwnProperty('output')) {
+      if (newPayload.output.hasOwnProperty('actions')){
+        //var actions = newPayload.output.generic.actions;
+        console.log("aquí les actions");
+
+      }
       if (newPayload.output.hasOwnProperty('generic')) {
-
+        
         var generic = newPayload.output.generic;
-
-        generic.forEach(function (gen) {
-          getResponse(responses, gen);
-        });
+          generic.forEach(function (gen) {
+            getResponse(responses, gen);          
+          });        
       }
       if (newPayload.output.hasOwnProperty('user_defined') && newPayload.output.user_defined.hasOwnProperty('ui_action')) {
         var ui_action = newPayload.output.user_defined.ui_action;
@@ -333,7 +338,7 @@ var ConversationPanel = (function () {
           innerhtml: input
         });
       }
-    }
+    } 
     return responses;
   }
 

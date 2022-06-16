@@ -96,7 +96,7 @@ app.post('/api/message', function (req, res) {
     if (err) {
       return res.status(err.code || 500).json(err);
     }
-    console.log(data.result.output.generic);
+    console.log(data.result.output);
 
     searchDocs.addDocs(data.result, function () {
       actions.testForAction(data.result, req.body.session_id).then(function (d) {
